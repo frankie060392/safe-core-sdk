@@ -52,7 +52,8 @@ export function getSafeContractInstance(
       safeContract = SafeMasterCopy_V1_0_0.connect(contractAddress, signerOrProvider)
       return new GnosisSafeContract_V1_0_0_Ethers(safeContract)
     default:
-      throw new Error('Invalid Safe version')
+      safeContract = SafeMasterCopy_V1_3_0.connect(contractAddress, signerOrProvider)
+      return new GnosisSafeContract_V1_3_0_Ethers(safeContract)
   }
 }
 
@@ -72,7 +73,11 @@ export function getCompatibilityFallbackHandlerContractInstance(
       )
       return new CompatibilityFallbackHandler_V1_3_0_Ethers(compatibilityFallbackHandlerContract)
     default:
-      throw new Error('Invalid Safe version')
+      compatibilityFallbackHandlerContract = CompatibilityFallbackHandler_V1_3_0.connect(
+        contractAddress,
+        signerOrProvider
+      )
+      return new CompatibilityFallbackHandler_V1_3_0_Ethers(compatibilityFallbackHandlerContract)
   }
 }
 
@@ -92,7 +97,8 @@ export function getMultiSendContractInstance(
       multiSendContract = MultiSend_V1_1_1.connect(contractAddress, signerOrProvider)
       return new MultiSendContract_V1_1_1_Ethers(multiSendContract)
     default:
-      throw new Error('Invalid Safe version')
+      multiSendContract = MultiSend_V1_3_0.connect(contractAddress, signerOrProvider)
+      return new MultiSendContract_V1_3_0_Ethers(multiSendContract)
   }
 }
 
@@ -113,7 +119,11 @@ export function getMultiSendCallOnlyContractInstance(
       )
       return new MultiSendCallOnlyContract_V1_3_0_Ethers(multiSendCallOnlyContract)
     default:
-      throw new Error('Invalid Safe version')
+      multiSendCallOnlyContract = MultiSendCallOnly_V1_3_0.connect(
+        contractAddress,
+        signerOrProvider
+      )
+      return new MultiSendCallOnlyContract_V1_3_0_Ethers(multiSendCallOnlyContract)
   }
 }
 
@@ -147,7 +157,11 @@ export function getSafeProxyFactoryContractInstance(
       )
       return new GnosisSafeProxyFactoryContract_V1_0_0_Ethers(gnosisSafeProxyFactoryContract)
     default:
-      throw new Error('Invalid Safe version')
+      gnosisSafeProxyFactoryContract = SafeProxyFactory_V1_3_0.connect(
+        contractAddress,
+        signerOrProvider
+      )
+      return new GnosisSafeProxyFactoryContract_V1_3_0_Ethers(gnosisSafeProxyFactoryContract)
   }
 }
 
@@ -162,7 +176,8 @@ export function getSignMessageLibContractInstance(
       signMessageLibContract = SignMessageLib_V1_3_0.connect(contractAddress, signerOrProvider)
       return new SignMessageLibContract_V1_3_0_Ethers(signMessageLibContract)
     default:
-      throw new Error('Invalid Safe version')
+      signMessageLibContract = SignMessageLib_V1_3_0.connect(contractAddress, signerOrProvider)
+      return new SignMessageLibContract_V1_3_0_Ethers(signMessageLibContract)
   }
 }
 
@@ -180,6 +195,7 @@ export function getCreateCallContractInstance(
       createCallContract = CreateCall_V1_3_0.connect(contractAddress, signerOrProvider)
       return new CreateCallContract_V1_3_0_Ethers(createCallContract)
     default:
-      throw new Error('Invalid Safe version')
+      createCallContract = CreateCall_V1_3_0.connect(contractAddress, signerOrProvider)
+      return new CreateCallContract_V1_3_0_Ethers(createCallContract)
   }
 }

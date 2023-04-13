@@ -50,13 +50,12 @@ class GnosisSafeProxyFactoryEthersContract implements GnosisSafeProxyFactoryCont
           callback(txResponse.hash)
         }
         const txReceipt = await txResponse.wait()
-        const proxyCreationEvent = txReceipt?.events?.find(
-          ({ event }: Event) => event === 'ProxyCreation'
-        )
-        if (!proxyCreationEvent || !proxyCreationEvent.args) {
+        const proxyCreationEvents = txReceipt?.events
+        console.log(txReceipt, 'tx recept')
+        if (!proxyCreationEvents || !proxyCreationEvents.length) {
           throw new Error('SafeProxy was not deployed correctly')
         }
-        const proxyAddress: string = proxyCreationEvent.args[0]
+        const proxyAddress: string = proxyCreationEvents[0].address
         return proxyAddress
       })
     return proxyAddress

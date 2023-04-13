@@ -39,21 +39,32 @@ interface GetSafeContractInstanceProps extends GetContractInstanceProps {
 export function getSafeContractDeployment(
   safeVersion: SafeVersion,
   chainId: number,
-  isL1SafeMasterCopy: boolean = false
+  isL1SafeMasterCopy = false
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].safeMasterCopyVersion
-  const filters: DeploymentFilter = { version, network: chainId.toString(), released: true }
+  const safeVersionStr = safeVersion
+
+  const version = safeDeploymentsVersions[safeVersionStr]
+    ? safeDeploymentsVersions[safeVersionStr].safeMasterCopyVersion
+    : safeDeploymentsVersions['1.3.0'].safeMasterCopyVersion
+  const filters: DeploymentFilter = {
+    version,
+    network: chainId.toString(),
+    released: true
+  }
   if (safeDeploymentsL1ChainIds.includes(chainId) || isL1SafeMasterCopy) {
     return getSafeSingletonDeployment(filters)
   }
-  return getSafeL2SingletonDeployment(filters)
+  const contract = getSafeL2SingletonDeployment(filters)
+  return contract
 }
 
 export function getCompatibilityFallbackHandlerContractDeployment(
   safeVersion: SafeVersion,
   chainId: number
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].compatibilityFallbackHandler
+  const version = safeDeploymentsVersions[safeVersion]
+    ? safeDeploymentsVersions[safeVersion].compatibilityFallbackHandler
+    : safeDeploymentsVersions['1.3.0'].compatibilityFallbackHandler
   return getCompatibilityFallbackHandlerDeployment({
     version,
     network: chainId.toString(),
@@ -65,7 +76,9 @@ export function getMultiSendCallOnlyContractDeployment(
   safeVersion: SafeVersion,
   chainId: number
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].multiSendCallOnlyVersion
+  const version = safeDeploymentsVersions[safeVersion]
+    ? safeDeploymentsVersions[safeVersion].multiSendCallOnlyVersion
+    : safeDeploymentsVersions['1.3.0'].multiSendCallOnlyVersion
   return getMultiSendCallOnlyDeployment({ version, network: chainId.toString(), released: true })
 }
 
@@ -73,7 +86,9 @@ export function getMultiSendContractDeployment(
   safeVersion: SafeVersion,
   chainId: number
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].multiSendVersion
+  const version = safeDeploymentsVersions[safeVersion]
+    ? safeDeploymentsVersions[safeVersion].multiSendVersion
+    : safeDeploymentsVersions['1.3.0'].multiSendVersion
   return getMultiSendDeployment({ version, network: chainId.toString(), released: true })
 }
 
@@ -81,7 +96,9 @@ export function getSafeProxyFactoryContractDeployment(
   safeVersion: SafeVersion,
   chainId: number
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].safeProxyFactoryVersion
+  const version = safeDeploymentsVersions[safeVersion]
+    ? safeDeploymentsVersions[safeVersion].safeProxyFactoryVersion
+    : safeDeploymentsVersions['1.3.0'].safeProxyFactoryVersion
   return getProxyFactoryDeployment({ version, network: chainId.toString(), released: true })
 }
 
@@ -89,7 +106,9 @@ export function getSignMessageLibContractDeployment(
   safeVersion: SafeVersion,
   chainId: number
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].signMessageLibVersion
+  const version = safeDeploymentsVersions[safeVersion]
+    ? safeDeploymentsVersions[safeVersion].signMessageLibVersion
+    : safeDeploymentsVersions['1.3.0'].signMessageLibVersion
   return getSignMessageLibDeployment({ version, network: chainId.toString(), released: true })
 }
 
@@ -97,7 +116,9 @@ export function getCreateCallContractDeployment(
   safeVersion: SafeVersion,
   chainId: number
 ): SingletonDeployment | undefined {
-  const version = safeDeploymentsVersions[safeVersion].createCallVersion
+  const version = safeDeploymentsVersions[safeVersion]
+    ? safeDeploymentsVersions[safeVersion].createCallVersion
+    : safeDeploymentsVersions['1.3.0'].createCallVersion
   return getCreateCallDeployment({ version, network: chainId.toString(), released: true })
 }
 
